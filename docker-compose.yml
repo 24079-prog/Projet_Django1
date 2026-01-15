@@ -1,5 +1,4 @@
 services:
-
   web:
     build: .
     container_name: django_web
@@ -40,6 +39,17 @@ services:
       - "8033:80"
     depends_on:
       - db
+
+  scraper:
+    build: ./services/scraper
+    container_name: scraper
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB: sid_db
+      POSTGRES_USER: sid_user
+      POSTGRES_PASSWORD: sid_pass
+      POSTGRES_HOST: db
 
 volumes:
   postgres_data:

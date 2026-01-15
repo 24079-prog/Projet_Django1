@@ -12,6 +12,9 @@ services:
     env_file:
       - .env
 
+    ports:
+    - "8000:8000"
+
   db:
     image: postgres:15-alpine
     container_name: postgres_db

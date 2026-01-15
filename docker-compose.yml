@@ -2,7 +2,6 @@ services:
 
   web:
     build: .
-
     container_name: django_web
     working_dir: /app
     volumes:
@@ -12,9 +11,8 @@ services:
       - db
     env_file:
       - .env
-
     ports:
-    - "8000:8000"
+      - "8000:8000"
 
   db:
     image: postgres:15-alpine
@@ -31,6 +29,17 @@ services:
     container_name: mongo_db
     volumes:
       - mongo_data:/data/db
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_django
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin12345
+    ports:
+      - "8033:80"
+    depends_on:
+      - db
 
 volumes:
   postgres_data:

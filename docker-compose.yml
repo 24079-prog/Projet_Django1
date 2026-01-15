@@ -1,7 +1,8 @@
 services:
 
   web:
-    image: python:3.11-slim
+    build: .
+
     container_name: django_web
     working_dir: /app
     volumes:

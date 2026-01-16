@@ -39,6 +39,8 @@ services:
       - "8033:80"
     depends_on:
       - db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
   scraper:
     build: ./services/scraper
@@ -54,3 +56,4 @@ services:
 volumes:
   postgres_data:
   mongo_data:
+  pgadmin_data:

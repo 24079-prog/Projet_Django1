@@ -1,0 +1,10 @@
+<h1>{{ asset.code }}</h1>
+<canvas id="c"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+new Chart(document.getElementById("c"), {
+  type: "line",
+  data: { labels: {{ dates|safe }},
+          datasets: [{ label: "Prix (MRU)", data: {{ values|safe }} }] }
+});
+</script>

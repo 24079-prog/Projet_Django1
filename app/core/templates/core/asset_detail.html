@@ -1,10 +1,29 @@
 <h1>{{ asset.code }}</h1>
+
+<form method="get">
+  <select name="period" onchange="this.form.submit()">
+    <option value="7d" {% if period == "7d" %}selected{% endif %}>7 jours</option>
+    <option value="1m" {% if period == "1m" %}selected{% endif %}>1 mois</option>
+    <option value="3m" {% if period == "3m" %}selected{% endif %}>3 mois</option>
+    <option value="6m" {% if period == "6m" %}selected{% endif %}>6 mois</option>
+    <option value="1y" {% if period == "1y" %}selected{% endif %}>1 an</option>
+    <option value="2y" {% if period == "2y" %}selected{% endif %}>2 ans</option>
+  </select>
+</form>
+
 <canvas id="c"></canvas>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 new Chart(document.getElementById("c"), {
   type: "line",
-  data: { labels: {{ dates|safe }},
-          datasets: [{ label: "Prix (MRU)", data: {{ values|safe }} }] }
+  data: {
+    labels: {{ dates|safe }},
+    datasets: [{
+      label: "Prix (MRU)",
+      data: {{ values|safe }},
+      borderWidth: 2
+    }]
+  }
 });
 </script>

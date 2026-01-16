@@ -1,6 +1,19 @@
 <h1>Comparaison des actifs</h1>
 
 <form method="get">
+  <!-- Sélecteur de période -->
+  <select name="period">
+    <option value="7d" {% if period == "7d" %}selected{% endif %}>7 jours</option>
+    <option value="1m" {% if period == "1m" %}selected{% endif %}>1 mois</option>
+    <option value="3m" {% if period == "3m" %}selected{% endif %}>3 mois</option>
+    <option value="6m" {% if period == "6m" %}selected{% endif %}>6 mois</option>
+    <option value="1y" {% if period == "1y" %}selected{% endif %}>1 an</option>
+    <option value="2y" {% if period == "2y" %}selected{% endif %}>2 ans</option>
+  </select>
+
+  <br><br>
+
+  <!-- Sélection des assets -->
   {% for a in assets %}
     <label>
       <input type="checkbox" name="assets" value="{{ a.code }}"
@@ -8,6 +21,8 @@
       {{ a.code }}
     </label>
   {% endfor %}
+
+  <br><br>
   <button type="submit">Comparer</button>
 </form>
 

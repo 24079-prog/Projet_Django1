@@ -1,9 +1,19 @@
 <h1>Accueil</h1>
+
 <table border="1">
-<tr><th>Actif</th><th>Dernier prix (MRU)</th><th>Variation</th></tr>
+<tr>
+  <th>Actif</th>
+  <th>Dernier prix (MRU)</th>
+  <th>Variation</th>
+</tr>
+
 {% for r in rows %}
 <tr>
-  <td><a href="/asset/{{ r.asset.id }}/">{{ r.asset.code }}</a></td>
+  <td>
+    <a href="{% url 'asset_detail' r.asset.id %}">
+      {{ r.asset.code }}
+    </a>
+  </td>
   <td>{{ r.last }}</td>
   <td>{{ r.var }}</td>
 </tr>

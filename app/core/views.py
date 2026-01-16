@@ -21,3 +21,28 @@ def asset_detail(request, asset_id):
         "core/asset_detail.html",
         {"asset": a, "dates": dates, "values": values},
     )
+
+
+
+def compare(request):
+    assets = Asset.objects.all()
+    selected = request.GET.getlist("assets")
+
+    series = []
+    for a in assets.filter(code__in=selected):
+        prices = a.prices.order_by("date")
+        series.append({
+            "label": a.code,
+            "dates": [p.date.isoformat() for p in prices],
+            "values": [float(p.value_mru) for p in prices],
+        })
+
+    return render(
+        request,
+        "core/compare.html",
+        {
+            "assets": assets,
+            "series": series,
+            "selected": selected,
+        },
+    )

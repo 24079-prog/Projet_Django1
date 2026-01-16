@@ -1,0 +1,34 @@
+<h1>Comparaison des actifs</h1>
+
+<form method="get">
+  {% for a in assets %}
+    <label>
+      <input type="checkbox" name="assets" value="{{ a.code }}"
+             {% if a.code in selected %}checked{% endif %}>
+      {{ a.code }}
+    </label>
+  {% endfor %}
+  <button type="submit">Comparer</button>
+</form>
+
+<canvas id="chart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const datasets = [];
+{% for s in series %}
+datasets.push({
+  label: "{{ s.label }}",
+  data: {{ s.values|safe }},
+  borderWidth: 2,
+});
+{% endfor %}
+
+new Chart(document.getElementById("chart"), {
+  type: "line",
+  data: {
+    labels: {{ series.0.dates|default:"[]"|safe }},
+    datasets: datasets
+  }
+});
+</script>
